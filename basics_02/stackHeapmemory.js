@@ -30,4 +30,16 @@ console.log(username.length);
 console.log(username.toUpperCase());
 console.log(username.charAt(3));
 console.log(username.indexOf("a"));
+console.log(username.substring(1, 4));
+console.log(username.slice(-1,1));//we can use -ve also
+const newstr="   RadhaKrishna  ";
+console.log(newstr);
+console.log(newstr.trim())
+console.log()
+
+console.log(newstr.replace('Krishna','Radha'));
+console.log(newstr.includes('Radha'));
+console.log(newstr.split('-'));
+console.log(newstr.bold());
+
 
