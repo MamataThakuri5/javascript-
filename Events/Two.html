@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTMLevents</title>
+</head>
+<body>
+<h1>Chai code</h1>
+<button id="stop">stop</button>
+</body>
+<script>
+  // setTimeout(function(){
+  //console.log("hiii");
+  const sayhii=function(){
+    console.log("hiii");
+  } 
+  const changeText=function(){
+  document.querySelector('h1').innerHTML="best JS series"
+  const change=setTimeOut(changeText,2000)}
+  document.querySelector('#stop').addEventListener('click',function(){
+    clearTimeOut(change);
+    console.log('STOPPED')
+  })
+</script>
+</html>
