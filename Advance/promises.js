@@ -43,4 +43,31 @@ const promiseThree=new Promise(function(resolve,reject){
     console.log(username);
    }).catch(function(error){
     console.log(error);
-   })
+   }).finally(()=>console.log("the promises is either resolved or rejected"))
+   const promiseFive=new Promise(function(resolve,reject){
+    setTimeout(function(){
+    let error=true;
+    if(!error){
+      resolve({username:"javascript",password:"abcd"})
+    }else{
+      reject("error:Js went Wrong");
+    }
+  },1000)
+   });
+   async function cosumePromiseFive(){
+    try{
+   const respose= await promiseFive
+   console.log(response);
+   }catch(error){
+    console.log(error);
+   }
+  }
+  cosumePromiseFive();
+  fetch("https://api.github.com/users/hiteshchoudhary/")
+  .then((response)=>{
+    return response.json()
+  })
+  .then((data)=>{
+    console.log(data);
+  })
+  .catch((error)=>console.log(error))
