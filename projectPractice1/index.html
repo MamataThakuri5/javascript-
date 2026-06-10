@@ -43,6 +43,12 @@
     let history= document.getElementById("history");
      history.prepend(item);
      document.getElementById("empty-msg").style.display="none"; //hiding  empty -msg while clicling the button 
+
+     // Save
+    localStorage.setItem("moods", JSON.stringify(yourArray));
+
+   // Load back
+    let saved = JSON.parse(localStorage.getItem("moods"));
       }
     </script>
     </html>
