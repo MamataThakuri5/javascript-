@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evennt listener</title>
+</head>
+<body>
+  <button id="my-button">click me</button>
+  <script>
+    let buttonElement=document.querySelector('#my-button');
+    let behavior=event=>console.log('i am clicked');
+
+     buttonElement.addEventListener('click',behavior);
+
+     let printDate=event=>console.log(new Date());
+     
+     buttonElement.addEventListener('click',printDate);
+     buttonElement.removeEventListener('click',printDate);
+  </script>
+ 
+</body>
+</html>

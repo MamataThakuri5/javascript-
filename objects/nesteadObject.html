@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nestead object</title>
+</head>
+<body>
+  <script>
+    let product={
+        company:'Zara',
+        price:800,
+        rating:{
+          stars:4.5,
+          noOfReviews:87,
+        },
+        type:'fabric',
+        'item-name':'shirt',
+        displayPrice:function(){
+          console.log(`price of the product is ₹${this.price}`)
+        }
+    };
+    console.log(product.rating);
+    product.displayPrice();
+  </script>
+</body>
+</html>

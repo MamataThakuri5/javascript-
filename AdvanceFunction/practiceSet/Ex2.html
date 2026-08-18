@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>run twice method</title>
+  <style>
+    .btn-click{
+      font-size: 15px;
+      height:20px;
+      width: 150px;
+      background-color: #ff0000;
+      color:white;
+      border: none;
+      border-radius: 4px;
+    }
+    .size-double{
+      font-size: 30px;
+      height: 40px;
+      width: 300;
+    }
+  </style>
+</head>
+<body>
+  <button class="btn-click" >Subscribe</button>
+  <script>
+      let buttonElement=document.querySelector('.btn-click');
+    buttonElement.addEventListener('click',event=>
+      setTimeout(doubleTheSize,2000));
+
+      function doubleTheSize(){
+        let buttonElement=document.querySelector('.btn-click');
+      buttonElement.classList.add('size-double');
+    }
+   /** let printGreeting=()=>console.log('Namaste');
+  let runTwice=inputFunction=>{
+    inputFunction();
+    inputFunction();
+  };
+  runTwice(printGreeting);**/
+  </script>
+</body>
+</html>

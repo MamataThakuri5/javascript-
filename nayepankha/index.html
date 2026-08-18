@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NayePankh Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── CSS Variables ── */
+    :root {
+      --bg: #ffffff;
+      --bg2: #f4f6f9;
+      --bg3: #eaf1fb;
+      --text: #1a1a2e;
+      --text2: #4a5568;
+      --text3: #718096;
+      --accent: #115f1e;
+      --accent2: #849bbc;
+      --accent-light: #e6f1fb;
+      --green: #1d9e75;
+      --green-light: #e1f5ee;
+      --card: #ffffff;
+      --border: rgba(0,0,0,0.08);
+      --nav-bg: rgba(255,255,255,0.92);
+      --shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+    [data-theme="dark"] {
+      --bg: #0f1117;
+      --bg2: #181c27;
+      --bg3: #1a2235;
+      --text: #f0f4ff;
+      --text2: #a8b4c8;
+      --text3: #6b7a94;
+      --accent: #4fa3e8;
+      --accent2: #7bbff0;
+      --accent-light: #0c2240;
+      --green: #3dcfa0;
+      --green-light: #0a2a20;
+      --card: #181c27;
+      --border: rgba(255,255,255,0.07);
+      --nav-bg: rgba(15,17,23,0.95);
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo span.wing {
+      display: inline-block;
+      font-size: 1.6rem;
+      animation: flutter 2.5s ease-in-out infinite;
+    }
+    @keyframes flutter {
+      0%, 100% { transform: rotate(-8deg) scale(1); }
+      50% { transform: rotate(8deg) scale(1.15); }
+    }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500; color: var(--text2);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: var(--accent);
+      transform: scaleX(0); transition: transform 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .btn-donate {
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 8px;
+      padding: 0.5rem 1.2rem; font-size: 0.88rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s, transform 0.1s;
+    }
+    .btn-donate:hover { background: var(--accent2); transform: translateY(-1px); }
+    .theme-toggle {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 50%; width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.1rem; transition: background 0.3s;
+    }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+    /* ── Mobile Menu ── */
+    .mobile-menu {
+      display: none; position: fixed; top: 64px; left: 0; right: 0;
+      background: var(--nav-bg); border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem; z-index: 998; flex-direction: column; gap: 1.2rem;
+      backdrop-filter: blur(12px);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 1rem; font-weight: 500; color: var(--text2); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 6rem 2rem 4rem;
+      background: var(--bg);
+      position: relative; overflow: hidden;
+    }
+    .hero-bg-circle {
+      position: absolute; border-radius: 50%;
+      background: var(--accent-light); opacity: 0.6;
+      animation: float 6s ease-in-out infinite;
+    }
+    .hero-bg-circle:nth-child(1) { width: 500px; height: 500px; top: -150px; right: -100px; }
+    .hero-bg-circle:nth-child(2) { width: 300px; height: 300px; bottom: -80px; left: -80px; animation-delay: 2s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--green-light); color: var(--green);
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; border-radius: 999px;
+      padding: 0.35rem 1rem; margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 700; line-height: 1.2;
+      color: var(--text); margin-bottom: 1.2rem;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: 1.05rem; color: var(--text2);
+      max-width: 480px; margin-bottom: 2rem; line-height: 1.8;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 10px;
+      padding: 0.8rem 1.8rem; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: var(--accent);
+      border: 2px solid var(--accent); border-radius: 10px;
+      padding: 0.8rem 1.8rem; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: 0.2s; display: inline-block;
+    }
+    .btn-outline:hover { background: var(--accent-light); }
+    .hero-visual {
+      display: flex; flex-direction: column; gap: 1.2rem; align-items: center;
+    }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem 2rem;
+      box-shadow: var(--shadow); width: 100%; max-width: 320px;
+      display: flex; align-items: center; gap: 1.2rem;
+      opacity: 0; transform: translateX(40px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .stat-card.visible { opacity: 1; transform: translateX(0); }
+    .stat-card:nth-child(2) { transition-delay: 0.15s; }
+    .stat-card:nth-child(3) { transition-delay: 0.3s; }
+    .stat-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: var(--accent-light); color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; flex-shrink: 0;
+    }
+    .stat-num { font-size: 1.6rem; font-weight: 700; color: var(--text); }
+    .stat-label { font-size: 0.85rem; color: var(--text3); margin-top: 2px; }
+
+    /* ── Section Base ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-tag {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700; color: var(--text); margin-bottom: 1rem;
+    }
+    .section-sub { font-size: 1rem; color: var(--text2); max-width: 560px; line-height: 1.8; }
+
+    /* ── About ── */
+    .about { background: var(--bg2); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .about-image-placeholder {
+      background: var(--accent-light);
+      border-radius: 20px; height: 380px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; color: var(--accent);
+      position: relative; overflow: hidden;
+    }
+    .about-image-placeholder::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        45deg, transparent, transparent 20px,
+        rgba(26,111,196,0.05) 20px, rgba(26,111,196,0.05) 40px
+      );
+    }
+    .about-points { margin-top: 1.8rem; display: flex; flex-direction: column; gap: 1rem; }
+    .about-point {
+      display: flex; gap: 1rem; align-items: flex-start;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .about-point.visible { opacity: 1; transform: translateY(0); }
+    .about-point:nth-child(2) { transition-delay: 0.1s; }
+    .about-point:nth-child(3) { transition-delay: 0.2s; }
+    .point-icon {
+      width: 40px; height: 40px; background: var(--green-light);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0; color: var(--green);
+    }
+    .point-text strong { display: block; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .point-text span { font-size: 0.9rem; color: var(--text2); }
+
+    /* ── Impact ── */
+    .impact { background: var(--bg); }
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .impact-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem 1.5rem; text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0; transform: translateY(30px);
+    }
+    .impact-card.visible { opacity: 1; transform: translateY(0); }
+    .impact-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+    .impact-emoji { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .impact-num {
+      font-size: 2.2rem; font-weight: 700; color: var(--accent);
+      display: block; margin-bottom: 0.4rem;
+    }
+    .impact-label { font-size: 0.9rem; color: var(--text2); }
+
+    /* ── Programs ── */
+    .programs { background: var(--bg2); }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .program-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.8rem;
+      box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0; transform: translateY(30px);
+    }
+    .program-card.visible { opacity: 1; transform: translateY(0); }
+    .program-card:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(0,0,0,0.1); }
+    .program-icon {
+      width: 54px; height: 54px; border-radius: 14px;
+      background: var(--accent-light); color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.2rem;
+    }
+    .program-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.6rem; }
+    .program-card p { font-size: 0.9rem; color: var(--text2); line-height: 1.7; }
+    .program-tag {
+      display: inline-block; margin-top: 1rem;
+      background: var(--green-light); color: var(--green);
+      font-size: 0.75rem; font-weight: 600;
+      padding: 0.25rem 0.8rem; border-radius: 999px;
+    }
+
+    /* ── Internship ── */
+    .internship { background: var(--accent); color: #fff; }
+    .internship .container {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .internship h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700;
+      margin-bottom: 1rem; color: #fff;
+    }
+    .internship p { color: rgba(255,255,255,0.85); line-height: 1.8; margin-bottom: 1.8rem; }
+    .btn-white {
+      background: #fff; color: var(--accent);
+      border: none; border-radius: 10px;
+      padding: 0.85rem 2rem; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .intern-perks { display: flex; flex-direction: column; gap: 1rem; }
+    .perk {
+      background: rgba(255,255,255,0.15); border-radius: 12px;
+      padding: 1rem 1.2rem; display: flex; align-items: center; gap: 1rem;
+      backdrop-filter: blur(4px);
+    }
+    .perk-icon { font-size: 1.4rem; }
+    .perk strong { display: block; font-weight: 600; color: #fff; }
+    .perk span { font-size: 0.85rem; color: rgba(255,255,255,0.8); }
+
+    /* ── Contact ── */
+    .contact { background: var(--bg); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .contact-icon {
+      width: 46px; height: 46px; background: var(--accent-light);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: var(--accent); flex-shrink: 0;
+    }
+    .contact-item strong { display: block; font-weight: 600; margin-bottom: 2px; }
+    .contact-item span { font-size: 0.9rem; color: var(--text2); }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.85rem; font-weight: 500; color: var(--text2); }
+    .form-group input, .form-group textarea, .form-group select {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.75rem 1rem;
+      font-size: 0.95rem; color: var(--text); font-family: inherit;
+      transition: border 0.2s, box-shadow 0.2s; outline: none;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--accent); box-shadow: 0 0 0 3px rgba(26,111,196,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .btn-submit {
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 10px;
+      padding: 0.85rem 2rem; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s, transform 0.15s;
+      align-self: flex-start;
+    }
+    .btn-submit:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    }
+    .footer-brand .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; color: var(--accent); font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+    .footer-brand p { font-size: 0.9rem; color: var(--text2); line-height: 1.7; }
+    .footer-col h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-col ul li a { font-size: 0.88rem; color: var(--text2); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--accent); }
+    .footer-bottom {
+      max-width: 1200px; margin: 2rem auto 0;
+      padding-top: 1.5rem; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.85rem; color: var(--text3); flex-wrap: wrap; gap: 0.5rem;
+    }
+    .social-links { display: flex; gap: 0.8rem; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--bg); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; color: var(--text2); transition: 0.2s;
+      cursor: pointer;
+    }
+    .social-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* ── Scroll animation observer ── */
+    .fade-in {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .hero-inner, .about-grid, .internship .container, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .hero-visual { align-items: stretch; }
+      .stat-card { max-width: 100%; }
+      .about-image-placeholder { height: 250px; }
+    }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .btn-donate { display: none; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+      section { padding: 3.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav>
+  <div class="nav-logo">
+    <span class="wing">🪶</span>
+    NayePankh Foundation
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#internship">Internships</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark mode">🌙</button>
+    <a href="#contact" class="btn-donate">Donate Now</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#impact" onclick="closeMobile()">Impact</a>
+  <a href="#programs" onclick="closeMobile()">Programs</a>
+  <a href="#internship" onclick="closeMobile()">Internships</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <a href="#contact" class="btn-primary" style="text-align:center;" onclick="closeMobile()">Donate Now</a>
+</div>
+
+<!-- ── Hero ── -->
+<section class="hero" id="home">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <span class="hero-tag">✨ UP Govt Registered NGO · 80G & 12A Certified</span>
+      <h1>Empowering Lives, <span>One Step</span> at a Time</h1>
+      <p>NayePankh Foundation works tirelessly to uplift underprivileged communities across India through education, skill-building, and compassionate outreach.</p>
+      <div class="hero-btns">
+        <a href="#programs" class="btn-primary">Explore Programs</a>
+        <a href="#internship" class="btn-outline">Join as Intern</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="stat-card">
+        <div class="stat-icon">🎓</div>
+        <div>
+          <div class="stat-num">50,000+</div>
+          <div class="stat-label">Interns Trained</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🤝</div>
+        <div>
+          <div class="stat-num">72,000+</div>
+          <div class="stat-label">Lives Impacted</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌍</div>
+        <div>
+          <div class="stat-num">2,700+</div>
+          <div class="stat-label">Opportunities Posted</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About ── -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-placeholder">
+        <span style="font-size: 6rem; z-index: 1; position: relative;">🕊️</span>
+      </div>
+      <div>
+        <p class="section-tag">Who We Are</p>
+        <h2 class="section-title">A Student-Led Movement for Change</h2>
+        <p class="section-sub">Founded with a belief that every individual deserves a fair chance, NayePankh Foundation is one of India's largest student-led NGOs, dedicated to uplifting the underprivileged through meaningful action.</p>
+        <div class="about-points">
+          <div class="about-point">
+            <div class="point-icon">📋</div>
+            <div class="point-text">
+              <strong>Government Registered</strong>
+              <span>Recognized by UP Government with 80G & 12A tax exemption status.</span>
+            </div>
+          </div>
+          <div class="about-point">
+            <div class="point-icon">📰</div>
+            <div class="point-text">
+              <strong>Media Featured</strong>
+              <span>Covered by The Pioneer, Dainik Jagran, Hindustan, and more.</span>
+            </div>
+          </div>
+          <div class="about-point">
+            <div class="point-icon">🚀</div>
+            <div class="point-text">
+              <strong>Active Since 2022</strong>
+              <span>Growing rapidly with 501–1000 active team members nationwide.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Impact ── -->
+<section class="impact" id="impact">
+  <div class="container">
+    <p class="section-tag fade-in">Our Impact</p>
+    <h2 class="section-title fade-in">Numbers That Tell Our Story</h2>
+    <p class="section-sub fade-in">Every number represents a real person whose life we've touched through dedication and compassion.</p>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <span class="impact-emoji">🎓</span>
+        <span class="impact-num">45,000+</span>
+        <span class="impact-label">Interns Mentored</span>
+      </div>
+      <div class="impact-card">
+        <span class="impact-emoji">💼</span>
+        <span class="impact-num">72,393</span>
+        <span class="impact-label">Candidates Hired</span>
+      </div>
+      <div class="impact-card">
+        <span class="impact-emoji">📢</span>
+        <span class="impact-num">2,759+</span>
+        <span class="impact-label">Opportunities Posted</span>
+      </div>
+      <div class="impact-card">
+        <span class="impact-emoji">🏙️</span>
+        <span class="impact-num">20+</span>
+        <span class="impact-label">Cities Reached</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Programs ── -->
+<section class="programs" id="programs">
+  <div class="container">
+    <p class="section-tag fade-in">What We Offer</p>
+    <h2 class="section-title fade-in">Programs Built for Purpose</h2>
+    <p class="section-sub fade-in">From technology to social outreach, our programs are designed to develop real-world skills while making genuine social impact.</p>
+    <div class="programs-grid">
+      <div class="program-card">
+        <div class="program-icon">💻</div>
+        <h3>Web Development</h3>
+        <p>Build and maintain real websites using HTML, CSS, and JavaScript. Work with a live team on production projects.</p>
+        <span class="program-tag">Tech</span>
+      </div>
+      <div class="program-card">
+        <div class="program-icon">🐍</div>
+        <h3>Python Development</h3>
+        <p>Solve real problems with Python. From data scripts to automation — build skills that employers look for.</p>
+        <span class="program-tag">Tech</span>
+      </div>
+      <div class="program-card">
+        <div class="program-icon">📊</div>
+        <h3>Data Analytics</h3>
+        <p>Analyze social impact data and help the foundation make smarter decisions through data storytelling.</p>
+        <span class="program-tag">Tech</span>
+      </div>
+      <div class="program-card">
+        <div class="program-icon">🙌 </div>
+        <h3>Fundraising</h3>
+        <p>Learn the art of community engagement and campaign management while raising support for meaningful causes.</p>
+        <span class="program-tag">Social</span>
+      </div>
+      <div class="program-card">
+        <div class="program-icon">🏘️</div>
+        <h3>Social Outreach</h3>
+        <p>Connect with communities, understand their needs, and represent NayePankh's mission on the ground.</p>
+        <span class="program-tag">Social</span>
+      </div>
+      <div class="program-card">
+        <div class="program-icon">🌱</div>
+        <h3>Social Entrepreneurship</h3>
+        <p>Innovate solutions for social problems — a program for those who want to merge business thinking with empathy.</p>
+        <span class="program-tag">Leadership</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Internship CTA ── -->
+<section class="internship" id="internship">
+  <div class="container">
+    <div>
+      <h2>Start Your Internship Journey Today</h2>
+      <p>Join thousands of students who have grown their careers while making a real difference. Our internships are work-from-home, flexible, and open to students from all backgrounds.</p>
+      <a href="https://internshala.com/internships/internship-at-nayepankh-foundation/" target="_blank" class="btn-white">Apply on Internshala →</a>
+    </div>
+    <div class="intern-perks">
+      <div class="perk">
+        <span class="perk-icon">🏅</span>
+        <div>
+          <strong>Completion Certificate</strong>
+          <span>Recognized certificate upon successful completion</span>
+        </div>
+      </div>
+      <div class="perk">
+        <span class="perk-icon">✉️</span>
+        <div>
+          <strong>Letter of Recommendation</strong>
+          <span>LOR from NGO leadership for high performers</span>
+        </div>
+      </div>
+      <div class="perk">
+        <span class="perk-icon">🏠</span>
+        <div>
+          <strong>100% Remote</strong>
+          <span>Work from anywhere in India, at flexible hours</span>
+        </div>
+      </div>
+      <div class="perk">
+        <span class="perk-icon">📈</span>
+        <div>
+          <strong>Real Experience</strong>
+          <span>Hands-on work on live projects, not dummy tasks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section class="contact" id="contact">
+  <div class="container">
+    <p class="section-tag fade-in">Get In Touch</p>
+    <h2 class="section-title fade-in">We'd Love to Hear From You</h2>
+    <p class="section-sub fade-in">Whether you want to volunteer, donate, or just know more — reach out to us anytime.</p>
+    <div class="contact-grid">
+      <div class="contact-info fade-in">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <strong>Location</strong>
+            <span>Delhi, India (Remote Operations Pan-India)</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <strong>Email</strong>
+            <span>info@nayepankh.com</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div>
+            <strong>Website</strong>
+            <span>nayepankh.com</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div>
+            <strong>Social Media</strong>
+            <span>@nayepankh on LinkedIn, Instagram & Twitter</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form fade-in">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" placeholder="Your first name" />
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" placeholder="Your last name" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label for="subject">I want to</label>
+          <select id="subject">
+            <option value="">Select a reason</option>
+            <option>Volunteer with NayePankh</option>
+            <option>Apply for an Internship</option>
+            <option>Make a Donation</option>
+            <option>Partner with us</option>
+            <option>Just say hello!</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Tell us about yourself or your query..."></textarea>
+        </div>
+        <button class="btn-submit" type="button" onclick="handleSubmit()">Send Message ✉️</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="brand-name">🪶 NayePankh Foundation</div>
+      <p>A UP Government registered NGO with 80G & 12A certification, working to uplift underprivileged communities across India through education and opportunity.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#impact">Our Impact</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#internship">Internships</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="#programs">Web Development</a></li>
+        <li><a href="#programs">Data Analytics</a></li>
+        <li><a href="#programs">Fundraising</a></li>
+        <li><a href="#programs">Social Outreach</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://nayepankh.com" target="_blank">Website</a></li>
+        <li><a href="https://linkedin.com/company/nayepankh" target="_blank">LinkedIn</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="https://internshala.com/internships/internship-at-nayepankh-foundation/" target="_blank">Apply Now</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 NayePankh Foundation. All rights reserved.</span>
+    <div class="social-links">
+      <div class="social-btn" title="LinkedIn">in</div>
+      <div class="social-btn" title="Instagram">ig</div>
+      <div class="social-btn" title="Twitter">tw</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Dark mode toggle
+  const themeBtn = document.getElementById('themeBtn');
+  const html = document.documentElement;
+  themeBtn.addEventListener('click', () => {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    themeBtn.textContent = isDark ? '🌙' : '☀️';
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobile() { mobileMenu.classList.remove('open'); }
+
+  // Scroll animation with IntersectionObserver
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll(
+    '.stat-card, .about-point, .impact-card, .program-card, .fade-in'
+  ).forEach(el => observer.observe(el));
+
+  // Stagger impact cards
+  document.querySelectorAll('.impact-card').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.1) + 's';
+  });
+  document.querySelectorAll('.program-card').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.08) + 's';
+  });
+
+  // Form submit
+  function handleSubmit() {
+    const name = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    if (!name || !email) {
+      alert('Please fill in your name and email.');
+      return;
+    }
+    alert(`Thank you, ${name}! 🙏 We'll get back to you at ${email} soon.`);
+  }
+</script>
+</body>
+</html>

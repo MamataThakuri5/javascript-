@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>for each loop</title>
+</head>
+<body>
+  <script>
+    let foods=['bread','rice','fruit','salad']
+   // for(let i=0;i<foods.length;i++){
+    //  console.log(foods[i]);}
+    
+    foods.forEach(function(arr){
+      console.log(arr);
+    });
+   // foods.forEach((arr)=>console.log(arr));
+   function search(foods,key){
+    for(let i=0;i<foods.length;i++){
+      if(foods[i]===key){
+      console.log(`element found at:${i}`)
+      return;
+    }
+      }
+      console.log('element was not found');
+   }
+   search(foods,'rice');
+   search(foods,'roti');
+  </script>
+</body>
+</html>

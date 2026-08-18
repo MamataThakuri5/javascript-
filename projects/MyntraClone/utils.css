@@ -1,0 +1,16 @@
+.flex{
+  display:flex;
+  align-items: center;
+  gap: 20px;
+}
+.semibold{
+  font-weight:bolder;
+}
+.space-between{
+  justify-content:space-between;
+  font-size: 14px;
+}
+.container{
+  padding: 0 10vw;
+  margin:10px 0px;
+}

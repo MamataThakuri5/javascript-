@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Objects</title>
+</head>
+<body>
+  <script>
+    let product={
+        company:'Zara',
+        price:800,
+        type:'fabric',
+    };
+    console.log(product)
+    console.log(product.price)//dot natation
+    product.company='sara';
+    console.log(product.company)
+
+    console.log(product["price"])//bracket natation
+    delete product.company;
+    console.log(product);
+
+  </script>
+</body>
+</html>

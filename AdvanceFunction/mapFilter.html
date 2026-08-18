@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapfilter</title>
+</head>
+<body>
+  <script>
+    //filter method
+    /**arr=[1,2,3,4,5,6];
+    console.log(arr);
+    let odds=arr.filter((num,i)=>{
+      if(num%2==1){
+        return true;
+      }
+      else{
+        return false;
+      }
+    });
+    console.log(odds);**/
+    //we can write this short types also
+   /** let newOdds=arr.filter(
+      (num,i)=>num%2===1
+       
+    );
+    console.log(newOdds);**/
+
+    //map example
+    let arr=[1,2,3,4,5]
+    let squares=arr.map((num)=>{
+      return num*num;
+    });
+    console.log(squares);
+  </script>
+</body>
+</html>

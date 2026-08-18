@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autoboxing</title>
+</head>
+<body>
+  <script>
+    console.log("this is mamata".toLocaleUpperCase());
+    console.log("this is mamata".toLocaleLowerCase());
+    console.log("this is mamata".replace('mamata','radha'));
+
+
+    let a=2;
+    let b=a;
+    console.log(`x=${a},b=${b}`);
+    a=8;
+    console.log(`x=${a},b=${b}`);
+    let x={
+      num:5
+    };
+    let y=x;
+    console.log(`x=${x.num},y=${y.num}`);
+    x.num=8;
+    console.log(`x=${x.num},y=${y.num}`);
+    let p={
+      pop:'mama',
+    }
+    let q={
+      pop:'mama',
+    }
+    console(p==q)//false
+  </script>
+</body>
+</html>
