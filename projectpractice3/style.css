@@ -1,0 +1,32 @@
+body{
+ 
+  background-color:rgb(238, 225, 225);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:40px;
+}
+#search-area{
+display:flex;
+gap:10px;
+}
+#city-input{
+  padding:8px;
+  border-radius:8px;
+  border:1px,solid,gray;
+
+}
+#search-btn{
+background-color:rgb(234, 153, 153);
+border:none;
+padding:8px 16px;
+border-radius:8px;
+cursor:pointer;
+}
+#weather-card{
+  background-color:white;
+  border-radius:10px;
+  padding:20px;
+  display:none;/* card is hidden until JS shows it */
+
+}

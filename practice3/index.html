@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    
+    
+    <title>button count</title>
+    <style>
+      #btn{
+       width:90px;
+       align-items:center;
+       height:30px;
+       border:1px solid black;
+       cursor:pointer;
+      }
+      #reset-btn{
+       width:40px;
+       align-items:center;
+       height:30px;
+       border:1px solid black;
+       cursor:pointer;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <button id="btn">Click me </button>
+    <button id="reset-btn">Reset </button>
+    <p id="para"></p>
+      </body>
+      <script>
+          document.getElementById('btn').addEventListener("click",countClick);
+           let count=0;
+        function countClick(){
+
+          count=count+1;
+          document.getElementById('para').textContent=count;
+         
+        }
+        document.getElementById('reset-btn').addEventListener("click",resetCount);
+        function resetCount(){
+          count=0;
+          document.getElementById('para').textContent=0;
+        }
+      </script>
+      </html>
