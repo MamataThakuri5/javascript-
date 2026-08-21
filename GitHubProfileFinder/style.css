@@ -49,3 +49,7 @@ cursor:pointer;
 #result{
   margin-top:10px;
 }
+.error {
+  color: #d73a49;
+  font-weight: bold;
+}
